@@ -13,25 +13,18 @@ class LandlordFilter
     */
     public static function getLandlordsByOrder( $filters = [] )
     {
-       $sortField = 'id';$sortBy='DESC';
+       $sortField = 'id';
 
-        if( isset($filters['sortField']) && isset($filters['orderBy']) )
+        if( isset($filters['sortField']) )
           {
             $sortField = $filters['sortField'];
-            $sortBy=$filters['orderBy'];
-          }
- 
-          elseif( !isset($filters['sortField']) && isset($filters['orderBy']) )
-          {
-            $sortBy=$filters['orderBy'];
-          }
- 
- 
-          elseif( isset($filters['sortField']) && !isset($filters['orderBy']) )
-          {
+
+            return Landlord::orderBy( $sortField)->get();
             
-        return Landlord::orderBy( $sortField)->get();
-    }
+          }
+
+            return Landlord::all();
+     }
 
     /**
      * Get Landlords created on a certain date.
