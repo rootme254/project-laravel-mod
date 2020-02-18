@@ -47,11 +47,12 @@ class NewBooking extends Notification
     {
         return (new MailMessage)
                     ->greeting('Hello! '.$user->name)
-                    ->subject('Booking added')
-                    ->line('The following booking was added '.$booking)
+                    ->subject('Added Booking')
+                    ->line('We are pleased to inform you that the booking '.$booking.' was added')
                     ->line('You can view bookings by clicking the button below.')
                     ->action('View Booking', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Thank you for using'.env(APP_NAME).'')
+                    ->action('unsubscribe', route('unsubscribe',$user->id))
     }
 
     /**
