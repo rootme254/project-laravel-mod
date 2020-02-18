@@ -46,13 +46,14 @@ class ListingDeleted extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    
                     ->greeting('Hello! '.$user->name)
                     ->subject('Delete Listing')
-                    ->line('Deletion of a listing')
-                    ->line('The listing '.$listing->title.' has been deleted .')
+                    ->line('This is to inform you that the listing '.$listing->title.' has been deleted .')
                     ->line('You can view deleted listing by clicking the button below.')
                     ->action('View deleted Listing', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Thank you for using'.env(APP_NAME).'')
+                    ->action('unsubscribe', route('unsubscribe',$user->id));
     }
 
     /**
