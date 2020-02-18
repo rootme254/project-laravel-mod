@@ -44,11 +44,12 @@ class UserDeleted extends Notification
     {
         return (new MailMessage)
                     ->greeting('Hello! '.$user->name)
-                    ->subject('Delete user.')
-                    ->line('User '.$user->name.' has been deleted.')
+                    ->subject('User has been deleted')
+                    ->line('We are pleased to inform you that the user '.$user->name.' has been deleted.')
                     ->line('You can view deleted user by clicking the button below.')
                     ->action('View deleted user ', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Thank you for using'.env(APP_NAME).'')
+                    ->action('unsubscribe', route('unsubscribe',$user->id))
     }
 
     /**
