@@ -43,13 +43,13 @@ class NewUser extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                     ->greeting('Hello! '.$user->name)
-                    ->subject('Creating a User.')
-                    ->line('Create user')
-                    ->line('User '.$user->name.' was created successfully.')
+                    ->greeting('Hello! '.$user->name)
+                    ->subject('Added User')
+                    ->line('We are pleased to inform you that the user '.$user->name.' was added successfully.')
                     ->line('You can view the user by clicking the button below.')
                     ->action('View new user', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Thank you for using'.env(APP_NAME).'')
+                    ->action('unsubscribe', route('unsubscribe',$user->id))
     }
 
     /**
