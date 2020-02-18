@@ -47,7 +47,7 @@ class NewListing extends Notification
     {
         return (new MailMessage)
                     ->greeting('Hello! '.$user->name)
-                    ->subject('Added a Listing')
+                    ->subject('Your Listing has been added.')
                     ->line('We are pleased to inform you that the '.$listing->title.' has been added.')
                     ->line('You can view the listing by clicking the button below.')
                     ->action('View listing', url('/'))
