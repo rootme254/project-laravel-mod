@@ -13,17 +13,27 @@ class LandlordFilter
     */
     public static function getLandlordsByOrder( $filters = [] )
     {
-       $sortField = 'id';
+       sortField = 'id'; $sortBy='DESC';
 
-        if( isset($filters['sortField']) )
+        if( isset($filters['sortField']) && isset($filters['orderBy']) )
           {
             $sortField = $filters['sortField'];
-
-            return Landlord::orderBy( $sortField)->get();
-            
+            $sortBy=$filters['orderBy'];
           }
+ 
+          elseif( !isset($filters['sortField']) && isset($filters['orderBy']) )
+          {
+            $sortBy=$filters['orderBy'];
+          }
+ 
+ 
+          elseif( isset($filters['sortField']) && !isset($filters['orderBy']) )
+          {
+            $sortField = $filters['sortField'];
+          }
+ 
 
-            return Landlord::all();
+        return Landlord::orderBy( $sortField, $sortBy )->get();
      }
 
     /**

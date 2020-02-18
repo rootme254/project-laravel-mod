@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 class NewUser extends Notification
 {
     use Queueable;
+    public $user;
     
 
     /**
@@ -17,9 +18,9 @@ class NewUser extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -42,10 +43,11 @@ class NewUser extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Creating a New User.')
-                    ->line('Create new user')
+                     ->greeting('Hello! '.$user->name)
+                    ->subject('Creating a User.')
+                    ->line('Create user')
                     ->line('User '.$user->name.' was created successfully.')
-                    ->line('You can view new user by clicking the button below.')
+                    ->line('You can view the user by clicking the button below.')
                     ->action('View new user', url('/'))
                     ->line('Thank you for using our application!');
     }

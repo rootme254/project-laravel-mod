@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notification;
 class NewBooking extends Notification
 {
     use Queueable;
+    public $user;
+    public $booking;
 
     
 
@@ -18,9 +20,10 @@ class NewBooking extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user,$booking)
     {
-        
+        $this->$user = $user;
+        $this->booking = $booking;
     }
 
     /**
@@ -43,7 +46,8 @@ class NewBooking extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('NewBooking added')
+                    ->greeting('Hello! '.$user->name)
+                    ->subject('Booking added')
                     ->line('The following booking was added '.$booking)
                     ->line('You can view bookings by clicking the button below.')
                     ->action('View Booking', url('/'))

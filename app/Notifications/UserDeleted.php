@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 class UserDeleted extends Notification
 {
     use Queueable;
+    public $user;
     
 
     /**
@@ -19,7 +20,7 @@ class UserDeleted extends Notification
      */
     public function __construct($user)
     {
-        
+        $this->user = $user;
     }
 
     /**
@@ -42,6 +43,7 @@ class UserDeleted extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->greeting('Hello! '.$user->name)
                     ->subject('Delete user.')
                     ->line('User '.$user->name.' has been deleted.')
                     ->line('You can view deleted user by clicking the button below.')

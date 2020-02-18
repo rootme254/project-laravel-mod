@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notification;
 class ListingDeleted extends Notification
 {
     use Queueable;
+    public $user;
+    public $listing;
     
 
 
@@ -18,9 +20,10 @@ class ListingDeleted extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user,$listing)
     {
-        //
+        $this->user= $user;
+        $this->listing = $listing;
     }
 
     /**
@@ -43,6 +46,7 @@ class ListingDeleted extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->greeting('Hello! '.$user->name)
                     ->subject('Delete Listing')
                     ->line('Deletion of a listing')
                     ->line('The listing '.$listing->title.' has been deleted .')

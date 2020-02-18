@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notification;
 class NewListing extends Notification
 {
     use Queueable;
+    public $user;
+    public $listing;
 
     
 
@@ -18,9 +20,10 @@ class NewListing extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user,$listing)
     {
-       //
+       $this->user = $user;
+       $this->listing = $listing;
     }
 
     /**
@@ -43,7 +46,8 @@ class NewListing extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('NewListing added')
+                    ->greeting('Hello! '.$user->name)
+                    ->subject('Listing added')
                     ->line('The Listing '.$listing->title.' has been added.')
                     ->line('You can view the listing by clicking the button below.')
                     ->action('View listing', url('/'))
