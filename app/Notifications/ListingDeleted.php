@@ -48,7 +48,7 @@ class ListingDeleted extends Notification
         return (new MailMessage)
                     
                     ->greeting('Hello! '.$user->name)
-                    ->subject('Delete Listing')
+                    ->subject('Listing has been deleted')
                     ->line('This is to inform you that the listing '.$listing->title.' has been deleted .')
                     ->line('You can view deleted listing by clicking the button below.')
                     ->action('View deleted Listing', url('/'))
